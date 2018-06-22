@@ -1,0 +1,22 @@
+{
+  "name": "personal",
+  "version": "1.0.0",
+  "description": "Project to better show results of jogo do bicho",
+  "main": "index.js",
+  "repository": "https://github.com/nagaroni/jogo-do-bicho.git",
+  "author": "Gabriel Lima",
+  "scripts":{
+    "start:dev": "webpack-dev-server --mode=development",
+    "build": "webpack --mode=production --module-bind js=babel-loader"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
