@@ -5,6 +5,9 @@ web scraper para extrair os resultados do jogo do bicho encontrados no site [www
 REQUERIMENTOS
 
 * node
+* ruby
+* bundler
+* postgres
 
 
 
