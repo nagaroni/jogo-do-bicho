@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './assets/javascripts/index.js',
   output: {
     path: path.resolve(__dirname, 'assets'),
     publicPath: '/assets/',
@@ -12,7 +12,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.resolve(__dirname, 'src')
+          path.resolve(__dirname, 'assets', 'javascripts')
         ],
         exclude: /node_modules/,
         use: {
