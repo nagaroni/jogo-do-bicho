@@ -10,7 +10,8 @@
     "build": "webpack --mode=production --module-bind js=babel-loader",
     "build:dev": "webpack --mode=development --module-bind js=babel-loader"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

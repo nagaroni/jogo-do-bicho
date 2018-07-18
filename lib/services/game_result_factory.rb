@@ -4,7 +4,9 @@ class GameResultFactory
   end
 
   def create
-    find_games_by_today_caption || create_games
+    games = find_games_by_today_caption || create_games
+
+    games.group_by(&:type)
   end
 
   private
