@@ -1,0 +1,24 @@
+version: '3'
+volumes:
+  yarn:
+services:
+  rackapp:
+    build: .
+    command: scripts/start.sh
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/o_jogo_do_bicho
+    depends_on:
+      - db
+    volumes:
+      - '.:/app'
+      - yarn:/app/node_modules
+    ports:
+      - '80:3000'
+  db:
+    image: 'postgres:9.6'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=o_jogo_do_bicho
