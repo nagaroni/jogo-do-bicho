@@ -1,3 +1,4 @@
+import 'materialize/js/materialize.min.js'
 import { getGameResults } from './helpers.js'
 const createTag = (tagName) => document.createElement(tagName)
 const tabNavigation = (name) => {

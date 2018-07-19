@@ -12,12 +12,17 @@ module.exports = {
     publicPath: '/assets/',
     filename: 'bundle.js'
   },
+  resolve: {
+    alias: {
+      'materialize': path.resolve(__dirname, 'node_modules', 'materialize-css', 'dist')
+    }
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         include: [
-          path.resolve(__dirname, 'assets', 'javascripts')
+          path.resolve(__dirname, 'assets', 'javascripts'),
         ],
         exclude: /node_modules/,
         use: {
@@ -26,11 +31,26 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
         use: extractCSS.extract({
           fallback: 'style-loader',
-          use: ['css-loader','sass-loader']
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'resolve-url-loader' },
+            { loader: 'sass-loader?sourceMap' }
+          ]
         })
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       }
     ]
   },
