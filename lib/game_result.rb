@@ -9,6 +9,7 @@ class GameResult
     Rack::URLMap.new(
       '/api/results' => results,
       '/assets/bundle.js' => asset_bundle_js,
+      '/assets/style.css' => asset_css,
       '/' => index_path
     )
   end
@@ -18,18 +19,22 @@ class GameResult
   JAVASCRIPT = { 'Content-Type' => 'text/javascript' }.freeze
   JSON       = { 'Content-Type' => 'application/json' }.freeze
   HTML       = { 'Content-Type' => 'text/html' }.freeze
+  CSS        = { 'Content-Type' => 'text/css' }.freeze
 
   def asset_bundle_js
-    filepath = path.join('assets', 'bundle.js')
-    bundle_js_content = File.read(filepath)
+    bundle_js_content = read_file('assets', 'bundle.js')
 
     Proc.new { |_| [200, JAVASCRIPT, [ bundle_js_content ]] }
   end
 
-  def index_path
-    filepath = path.join('public', 'index.html')
+  def asset_css
+    css_content = read_file('assets', 'style.css')
 
-    index_html = File.read(filepath)
+    Proc.new { |_| [200, CSS, [ css_content ]] }
+  end
+
+  def index_path
+    index_html = read_file('public', 'index.html')
 
     Proc.new { |_| [200, HTML, [ index_html ]] }
   end
@@ -40,6 +45,10 @@ class GameResult
 
   def results_body
     { results: GameResultFactory.create }.to_json
+  end
+
+  def read_file(*args)
+    File.read(path.join(*args))
   end
 
   def path
