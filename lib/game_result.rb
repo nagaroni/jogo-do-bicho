@@ -8,33 +8,29 @@ class GameResult
   def routes
     Rack::URLMap.new(
       '/api/results' => results,
-      '/assets/bundle.js' => asset_bundle_js,
-      '/assets/style.css' => asset_css,
+      '/dist' => public_files,
       '/' => index_path
     )
   end
 
   private
 
-  JAVASCRIPT = { 'Content-Type' => 'text/javascript' }.freeze
-  JSON       = { 'Content-Type' => 'application/json' }.freeze
-  HTML       = { 'Content-Type' => 'text/html' }.freeze
-  CSS        = { 'Content-Type' => 'text/css' }.freeze
+  HTML = { 'Content-Type' => 'text/html' }.freeze
 
-  def asset_bundle_js
-    bundle_js_content = read_file('assets', 'bundle.js')
+  def public_files
+    Proc.new do |env|
+      path_to_file = env['REQUEST_PATH'][1..-1]
 
-    Proc.new { |_| [200, JAVASCRIPT, [ bundle_js_content ]] }
-  end
-
-  def asset_css
-    css_content = read_file('assets', 'style.css')
-
-    Proc.new { |_| [200, CSS, [ css_content ]] }
+      if File.exists?(path.join('public', path_to_file))
+        [ 200, {},  [string_response(*path_to_file)]]
+      else
+        [ 404, {},  ['Not found']]
+      end
+    end
   end
 
   def index_path
-    index_html = read_file('public', 'index.html')
+    index_html = string_response(path.join('public', 'index.html'))
 
     Proc.new { |_| [200, HTML, [ index_html ]] }
   end
@@ -47,8 +43,8 @@ class GameResult
     { results: GameResultFactory.create }.to_json
   end
 
-  def read_file(*args)
-    File.read(path.join(*args))
+  def string_response(path_to_file)
+    File.read(path.join('public', path_to_file))
   end
 
   def path
