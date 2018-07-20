@@ -10,14 +10,18 @@
     "build": "webpack --mode=production --module-bind js=babel-loader",
     "build:dev": "webpack --mode=development --module-bind js=babel-loader"
   },
-  "dependencies": {},
+  "dependencies": {
+    "materialize-css": "^0.100.2"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
     "node-sass": "^4.9.2",
+    "resolve-url-loader": "^2.3.0",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
     "webpack": "^4.12.0",
