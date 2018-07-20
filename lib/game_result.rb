@@ -16,6 +16,7 @@ class GameResult
   private
 
   HTML = { 'Content-Type' => 'text/html' }.freeze
+  JSON = { 'Content-Type' => 'application/json' }.freeze
 
   def public_files
     Proc.new do |env|

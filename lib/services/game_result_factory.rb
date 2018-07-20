@@ -4,7 +4,9 @@ class GameResultFactory
   end
 
   def create
-    find_games_by_today_caption || create_games
+    games = find_games_by_today_caption || create_games
+
+    group_by_game_type(games)
   end
 
   private
@@ -16,6 +18,10 @@ class GameResultFactory
 
   def initialize
     ActiveSupport.run_load_hooks(:game_result_factory)
+  end
+
+  def group_by_game_type(games)
+    games.group_by(&:type)
   end
 
   def today_caption
