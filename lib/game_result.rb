@@ -41,7 +41,9 @@ class GameResult
   end
 
   def results_body
-    { results: GameResultFactory.create }.to_json
+    caption, results = GameResultFactory.create
+
+    { caption: caption, results: results }.to_json
   end
 
   def string_response(path_to_file)

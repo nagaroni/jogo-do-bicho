@@ -6,7 +6,7 @@ class GameResultFactory
   def create
     games = find_games_by_today_caption || create_games
 
-    group_by_game_type(games)
+    [today_caption, group_by_game_type(games)]
   end
 
   private
@@ -25,7 +25,7 @@ class GameResultFactory
   end
 
   def today_caption
-    I18n.l(Time.zone.now, format: :caption)
+    @today_caption ||= I18n.l(Time.zone.now, format: :caption)
   end
 
   def crawler
