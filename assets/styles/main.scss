@@ -1,8 +1,11 @@
-// put your css here
 @import '~materialize-css/sass/materialize.scss';
 
 .carousel {
   height: 550px !important;
+}
+
+#tab-navigation {
+  margin-bottom: 15px;
 }
 
 * {
